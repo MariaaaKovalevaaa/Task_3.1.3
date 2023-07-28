@@ -32,8 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/index", "/").permitAll() //url-адреса "/" и "/index" разрешены всем юзерам, в т.ч. не аутентифицированным
-                .antMatchers ("/admin/**").hasRole("ROLE_ADMIN")//В "/admin/**" могут заходить только юзеры с ролью "ADMIN"
-                .antMatchers("/user/**").hasAnyRole("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers ("/admin/**").hasRole("ADMIN")//В "/admin/**" могут заходить только юзеры с ролью "ADMIN"
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()//Все остальные url-адреса доступны только аутентифицированным
                 .and()//разделитель
 

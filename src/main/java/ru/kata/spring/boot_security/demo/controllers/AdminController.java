@@ -1,14 +1,17 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.boot_security.demo.models.User;
 
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -41,7 +44,7 @@ public class AdminController {
 **/
     @GetMapping ("/registration")
     public String form_for_create_user (Model model, User user) {
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
         model.addAttribute("allRoles", user.getAuthorities());
         return "/admin/registration";
     }

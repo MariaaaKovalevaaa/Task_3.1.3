@@ -1,15 +1,16 @@
 package ru.kata.spring.boot_security.demo.services;
 
-import org.springframework.security.core.userdetails.User;
-//import ru.kata.spring.boot_security.demo.models.User;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.models.Role;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,35 +26,49 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String username) {
+        if (userRepository.findByUsername(username).isEmpty()){
+            throw new UsernameNotFoundException("Пользователь с таким именем не найден");
+        }
+        return userRepository.findByUsername(username).get();
     }
 
     @Override
     public User findUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
+        if (userRepository.findById(id).isEmpty()) {
+            throw new UsernameNotFoundException("Пользователь с таким ID не найден");
+        }
+        return userRepository.findById(id).get();
     }
 
     @Transactional
     @Override
     public void updateUser(User updateUser, Long id) {
-        User user_for_changes = userRepository.findById(id).get();
-//        user_for_changes.setUsername(updateUser.getUsername());
-//        user_for_changes.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-//        user_for_changes.setRoles(updateUser.getAuthorities());
-        userRepository.save(user_for_changes);
+        User user_from_DB = userRepository.findById(id).get(); //Нашли в БД, кого хотим редактировать
+        user_from_DB.setUsername(updateUser.getUsername());
+        user_from_DB.setRoles((Set<Role>) updateUser.getAuthorities());
+
+        if (user_from_DB.getPassword().equals(updateUser.getPassword())) {
+            userRepository.save(user_from_DB);
+        } else {
+            user_from_DB.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+            userRepository.save(user_from_DB);
+        }
+
+        userRepository.save(user_from_DB);
     }
 
     @Override
     public void saveUser(User user) {
-        userRepository.save(user);
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
     }
-
     @Override
     public boolean deleteUserById(Long id) {
         if (userRepository.findById(id).isPresent()) {

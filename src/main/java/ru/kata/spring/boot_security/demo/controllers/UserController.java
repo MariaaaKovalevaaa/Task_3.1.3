@@ -1,7 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import ru.kata.spring.boot_security.demo.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +23,9 @@ public class UserController {
 
     @GetMapping()
     public String showUserAccount(Model model, Principal principal) {
-        Optional<User> user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        model.addAttribute("userRoles", user.get().getAuthorities());
+        model.addAttribute("userRoles", user.getAuthorities());
         return "/user/show-profile";
     }
 
