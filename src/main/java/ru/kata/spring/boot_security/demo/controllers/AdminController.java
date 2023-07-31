@@ -24,7 +24,7 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/admin")
+    @GetMapping()
     public String showAllUsers(Model model) {
         model.addAttribute("users", userService.findAll());//это пара ключ-значение. Ключ "users" будет во вьюшке list-users
         return "list-users";
