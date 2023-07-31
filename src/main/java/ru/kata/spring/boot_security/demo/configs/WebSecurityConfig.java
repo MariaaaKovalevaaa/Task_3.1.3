@@ -50,22 +50,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
 
-    //Преобразователь паролей в хэш. Потому что пароли в БД лежат в преобразованном виде.
-    //Чтобы сравнить введенный с формы пароль с паролем в БД, нужно преобразовать в такой же вид пароль с формы.
-    **/
+     //Преобразователь паролей в хэш. Потому что пароли в БД лежат в преобразованном виде.
+     //Чтобы сравнить введенный с формы пароль с паролем в БД, нужно преобразовать в такой же вид пароль с формы.
+     **/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-/**
-    //DaoAuthenticationProvider — это имплементация AuthenticationProvider, который получает информацию
-    //о пользователе с UserDetailsService.
-    //В AuthenticationProvider заложена логика сверки credentials, т.е. username и пароля, введенного с формы,
-    //с username и паролем в БД, т.е. он проверяет, есть ли такой юзер в БД или нет.
-    // Можно ли его аутентифицировать.
-**/
+    /**
+     //DaoAuthenticationProvider — это имплементация AuthenticationProvider, который получает информацию
+     //о пользователе с UserDetailsService.
+     //В AuthenticationProvider заложена логика сверки credentials, т.е. username и пароля, введенного с формы,
+     //с username и паролем в БД, т.е. он проверяет, есть ли такой юзер в БД или нет.
+     // Можно ли его аутентифицировать.
+     **/
     @Bean
     public AuthenticationProvider authenticationProvider () {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -73,13 +73,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setUserDetailsService(userDetailsService);
         return authenticationProvider;
     }
-
-
-
-
-
-
-
-
-
 }

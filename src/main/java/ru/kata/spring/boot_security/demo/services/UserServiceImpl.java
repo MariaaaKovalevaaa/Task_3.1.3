@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User updateUser, Long id) {
         User user_from_DB = userRepository.findById(id).get(); //Нашли в БД, кого хотим редактировать
         user_from_DB.setUsername(updateUser.getUsername());
-        user_from_DB.setRoles((Set<Role>) updateUser.getAuthorities());
+        user_from_DB.setRoles((List<Role>) updateUser.getAuthorities());
 
         if (user_from_DB.getPassword().equals(updateUser.getPassword())) {
             userRepository.save(user_from_DB);

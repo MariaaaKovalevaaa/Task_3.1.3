@@ -21,12 +21,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping("/user-profile")
     public String showUserAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
         model.addAttribute("userRoles", user.getAuthorities());
-        return "/user/show-profile";
+        return "/user-profile";
     }
 
 }

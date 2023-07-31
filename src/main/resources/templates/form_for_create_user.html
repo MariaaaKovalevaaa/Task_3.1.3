@@ -11,7 +11,8 @@
 
 <h1>Создание нового пользователя</h1>
 
-<form th:method="POST" th:action="@{/admin/create-user}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/creating-user}" th:object="${user}">
+
     <label for="username"> Введите имя: </label>
     <input type="text" th:field="*{username}" id="username"/>
     <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Ошибка в имени</div>
@@ -26,7 +27,7 @@
         <div>
             <label>Роли:
                 <input type="checkbox" name="roles"
-                   th:each="role: ${allRoles}"
+                   th:each="role: ${userRoles}"
                    th:text="${role.getRole()}"
                    th:value="${role.getId()}"
                    th:field="*{roles}"/>
