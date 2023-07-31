@@ -18,18 +18,16 @@ import java.util.List;
 @Component
 public class DatabaseInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
+    private RoleRepository roleRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     public DatabaseInitializer(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
-    private RoleRepository roleRepository;
-
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

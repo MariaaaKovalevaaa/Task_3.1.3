@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/index", "/").permitAll() //url-адреса "/" и "/index" разрешены всем юзерам, в т.ч. не аутентифицированным
-                .antMatchers ("/admin/**").hasRole("ADMIN")//В "/admin/**" могут заходить только юзеры с ролью "ADMIN"
+                .antMatchers("/admin/**").hasRole("ADMIN")//В "/admin/**" могут заходить только юзеры с ролью "ADMIN"
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()//Все остальные url-адреса доступны только аутентифицированным
                 .and()//разделитель
@@ -49,9 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-
-     //Преобразователь паролей в хэш. Потому что пароли в БД лежат в преобразованном виде.
-     //Чтобы сравнить введенный с формы пароль с паролем в БД, нужно преобразовать в такой же вид пароль с формы.
+     * //Преобразователь паролей в хэш. Потому что пароли в БД лежат в преобразованном виде.
+     * //Чтобы сравнить введенный с формы пароль с паролем в БД, нужно преобразовать в такой же вид пароль с формы.
      **/
 
     @Bean
@@ -60,14 +59,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     //DaoAuthenticationProvider — это имплементация AuthenticationProvider, который получает информацию
-     //о пользователе с UserDetailsService.
-     //В AuthenticationProvider заложена логика сверки credentials, т.е. username и пароля, введенного с формы,
-     //с username и паролем в БД, т.е. он проверяет, есть ли такой юзер в БД или нет.
-     // Можно ли его аутентифицировать.
+     * //DaoAuthenticationProvider — это имплементация AuthenticationProvider, который получает информацию
+     * //о пользователе с UserDetailsService.
+     * //В AuthenticationProvider заложена логика сверки credentials, т.е. username и пароля, введенного с формы,
+     * //с username и паролем в БД, т.е. он проверяет, есть ли такой юзер в БД или нет.
+     * // Можно ли его аутентифицировать.
      **/
     @Bean
-    public AuthenticationProvider authenticationProvider () {
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder()); //Кодировщик, чтобы преобразовать введенный с формы пароль к хэшу, т.е. к тому виду пароля, который лежит в БД
         authenticationProvider.setUserDetailsService(userDetailsService);

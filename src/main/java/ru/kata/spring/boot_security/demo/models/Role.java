@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.models;
 
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,16 +13,11 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "role")
+    @Column(name = "role")
     private String role;
-
-//    @ManyToMany (mappedBy = "roles") //Это ссылка на поле private Set <Role> roles в User. Там отображение связи.
-//    private List<User> list_of_users;
-
 
     public Role() {
     }
-
     public Role(String role) {
         this.role = role;
     }

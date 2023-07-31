@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.security.Principal;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -21,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user-profile")
+    @GetMapping()
     public String showUserAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);

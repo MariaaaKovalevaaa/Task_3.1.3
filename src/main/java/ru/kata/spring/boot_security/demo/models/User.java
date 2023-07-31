@@ -1,18 +1,18 @@
 package ru.kata.spring.boot_security.demo.models;
 
 
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.*;
 
 /**
-//UserDetails нужен д/того, чтобы преобразовать юзера из БД к определенному стандарту, чтобы его понял Спринг Секьюрити.
-//Т.е. UserDetails - это такая обертка д/Entity-класса.
-//UserDetails заведует самым основным: полномочиями - getAuthorities(), паролем - getPassword() и
-// именем юзера - getUsername()
-**/
+ * //UserDetails нужен д/того, чтобы преобразовать юзера из БД к определенному стандарту, чтобы его понял Спринг Секьюрити.
+ * //Т.е. UserDetails - это такая обертка д/Entity-класса.
+ * //UserDetails заведует самым основным: полномочиями - getAuthorities(), паролем - getPassword() и
+ * // именем юзера - getUsername()
+ **/
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -27,10 +27,12 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER) //Здесь жадная загрузка, чтобы сразу грузились все дочерние зависимости юзера. fetch (извлечение)
+    @ManyToMany(fetch = FetchType.EAGER)
+    //Здесь жадная загрузка, чтобы сразу грузились все дочерние зависимости юзера. fetch (извлечение)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),//Это колонка текущей сущности, т.е. User.
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")) //Это колонка второй (обратной) сущности, с которой связан User, т.е. Role.
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    //Это колонка второй (обратной) сущности, с которой связан User, т.е. Role.
     private List<Role> roles = new ArrayList<>();
 
     public User() {
@@ -68,6 +70,7 @@ public class User implements UserDetails {
     public void addRole(Role role) {
         this.roles.add(role);
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

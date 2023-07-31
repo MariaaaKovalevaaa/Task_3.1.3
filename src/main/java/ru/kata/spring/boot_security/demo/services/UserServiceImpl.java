@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        if (userRepository.findByUsername(username).isEmpty()){
+        if (userRepository.findByUsername(username).isEmpty()) {
             throw new UsernameNotFoundException("Пользователь с таким именем не найден");
         }
         return userRepository.findByUsername(username).get();
@@ -69,6 +70,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }
     }
+
     @Override
     public boolean deleteUserById(Long id) {
         if (userRepository.findById(id).isPresent()) {
