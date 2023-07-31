@@ -46,16 +46,29 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         List<Role> userRoles = Arrays.asList(userRole);
         List<Role> adminRoles = Arrays.asList(adminRole, userRole);
 
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword(passwordEncoder.encode("admin"));
+        admin.setRoles((List<Role>) adminRoles);
+        userRepository.save(admin);
+
         User user = new User();
         user.setUsername("user");
         user.setPassword(passwordEncoder.encode("user"));
         user.setRoles((List<Role>) userRoles);
         userRepository.save(user);
 
-        User admin = new User();
-        admin.setUsername("admin");
-        admin.setPassword(passwordEncoder.encode("admin"));
-        admin.setRoles((List<Role>) adminRoles);
-        userRepository.save(admin);
+        User user2 = new User();
+        user.setUsername("user2");
+        user.setPassword(passwordEncoder.encode("user2"));
+        user.setRoles((List<Role>) userRoles);
+        userRepository.save(user2);
+
+        User user3 = new User();
+        user.setUsername("user3");
+        user.setPassword(passwordEncoder.encode("user3"));
+        user.setRoles((List<Role>) userRoles);
+        userRepository.save(user3);
+
     }
 }

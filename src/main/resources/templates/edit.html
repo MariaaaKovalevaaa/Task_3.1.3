@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/admin/save-changes}" th:object="${user}">
+<form th:method="PATCH" th:action="@{/admin/update/{id}(id=${user.id})}" th:object="${user}">
     <input type="hidden" name="_method" value="PATCH" />
     <div class="main block">
 
@@ -19,7 +19,7 @@
 
         <div class="field">
             <label for="password">Пароль</label>
-            <input type="password" th:field="*{password}" id="password"/>
+            <input type="text" th:field="*{password}" id="password"/>
         </div>
         <div class="field">
 

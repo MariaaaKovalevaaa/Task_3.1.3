@@ -10,30 +10,46 @@
 <body>
 
 <h3>Пользователи</h3>
-
 <table>
-<div th:each="user : ${users}">
-    <a th:href="@{/admin/user-profile/{id} (id=${user.getId()})}"
-       th:text="${user.username}">user</a>
-</div>
 
-<div><form th:method="GET" th:action ="@{/admin/edit/{id}(id=${user.id})}"  >
-        <input type="submit" value="Редактировать"/>
-    </form>
-</div>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Пароль</th>
+        <th>Роль</th>
+    </tr>
 
-<div>
-    <form th:method="DELETE" th:action="@{/delete-user/{id} (id=${user.id})}">
-        <input type="hidden" name="_method" value="DELETE" />
-        <input type="submit" value="Удалить"/>
-    </form>
-</div>
+    </thead>
 
-<div>
-    <form th:method="GET" th:action="@{/admin/form_for_create_user}">
-        <input type="submit" value="Создать нового пользователя"/>
-    </form>
-</div>
+    <tbody>
+    <tr th:each="user: ${users}">
+        <td th:text="${user.getUsername()}"/>
+        <td th:text="${user.getPassword()}"/>
+        <td th:text="${user.getRoles()}"/>
+
+
+        <td>
+            <form th:method="GET" th:action="@{/admin/edit/{id}(id=${user.id})}">
+                <input type="submit" value="Редактировать"/>
+            </form>
+        </td>
+
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/delete-user/{id} (id=${user.id})}">
+                <input type="hidden" name="_method" value="DELETE"/>
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+
+        <td>
+            <form th:method="GET" th:action="@{/admin/form_for_create_user}">
+                <input type="submit" value="Создать нового пользователя"/>
+            </form>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
 
 
 </body>

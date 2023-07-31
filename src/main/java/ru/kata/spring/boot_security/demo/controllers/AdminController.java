@@ -62,16 +62,16 @@ public class AdminController {
      * // метод save_changes с аннотацией PATCH - @PatchMapping,
      * // Вьюшка будет редирект на url "/list-users"
      **/
-    @PatchMapping("/save-changes/")
-    public String save_changes(@ModelAttribute("user") User updateUser) {
-        userService.saveUser(updateUser); //Находим по id того юзера, которого надо изменить
-        return "redirect:/list-users";
+    @PatchMapping("/update/{id}")
+    public String updateUser(@ModelAttribute("user") User updateUser, @PathVariable("id") Long id) {
+        userService.updateUser(updateUser, id); //Находим по id того юзера, которого надо изменить
+        return "redirect:/admin";
     }
 
     @DeleteMapping("/delete-user/{id}")
     public String deleteUserById(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
-        return "redirect:/list-users";
+        return "redirect:/admin";
     }
 
 
@@ -102,6 +102,6 @@ public class AdminController {
     @PostMapping("/creating-user")
     public String saveNewUser(@ModelAttribute("user") User user) {
         userService.saveUser(user); // Добавляем этого юзера в БД
-        return "redirect:/list-users";
+        return "redirect:/admin";
     }
 }
