@@ -68,7 +68,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/delete-user/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteUserById(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/admin";
@@ -82,10 +82,9 @@ public class AdminController {
      * // а там на метод с аннотацией POST, т.е. @PostMapping(/create-user),
      * // А таким методом будет метод saveUser
      **/
-    @GetMapping("/form_for_create_user")
+    @GetMapping("/new")
     public String form_for_create_user(Model model, User user) {
         model.addAttribute("user", new User());
-        model.addAttribute("userRoles", user.getAuthorities());
         return "/form_for_create_user";
     }
 
@@ -99,7 +98,7 @@ public class AdminController {
      * //в поля этого объекта и затем добавление этого объекта в модель
      **/
 
-    @PostMapping("/creating-user")
+    @PostMapping("/create")
     public String saveNewUser(@ModelAttribute("user") User user) {
         userService.saveUser(user); // Добавляем этого юзера в БД
         return "redirect:/admin";

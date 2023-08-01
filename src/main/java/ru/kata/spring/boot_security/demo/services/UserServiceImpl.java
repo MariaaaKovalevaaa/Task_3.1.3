@@ -62,13 +62,11 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user_from_DB);
     }
-
+    @Transactional
     @Override
     public void saveUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     @Override

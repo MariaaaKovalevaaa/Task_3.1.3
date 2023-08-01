@@ -35,19 +35,21 @@
         </td>
 
         <td>
-            <form th:method="DELETE" th:action="@{/admin/delete-user/{id} (id=${user.id})}">
+            <form th:method="DELETE" th:action="@{/admin/delete/{id} (id=${user.id})}">
                 <input type="hidden" name="_method" value="DELETE"/>
                 <input type="submit" value="Удалить"/>
             </form>
         </td>
 
-        <td>
-            <form th:method="GET" th:action="@{/admin/form_for_create_user}">
-                <input type="submit" value="Создать нового пользователя"/>
-            </form>
-        </td>
+
 
     </tr>
+
+    <td>
+        <form th:method="GET" th:action="@{/admin/new}">
+            <input type="submit" value="Создать нового пользователя"/>
+        </form>
+    </td>
     </tbody>
 </table>
 

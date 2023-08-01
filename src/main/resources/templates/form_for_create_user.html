@@ -1,47 +1,41 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<html lang="en">
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Создание нового пользователя</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Создание нового пользователя</title>
+    </head>
+    <body>
 
-<h1>Создание нового пользователя</h1>
+    <h1>Создание нового пользователя</h1>
 
-<form th:method="POST" th:action="@{/admin/creating-user}" th:object="${user}">
+    <form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
 
-    <label for="username"> Введите имя: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Ошибка в имени</div>
-    <br/>
+        <label for="username"> Введите имя: </label>
+        <input type="text" th:field="*{username}" id="username"/>
+<!--        <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Ошибка в имени</div>-->
+        <br/>
 
-    <label for="password"> Введите пароль: </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Ошибка в пароле</div>
-    <br/>
+        <label for="password"> Введите пароль: </label>
+        <input type="text" th:field="*{password}" id="password"/>
+<!--        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Ошибка в пароле</div>-->
+        <br/>
 
-    <div class="field">
-        <div>
-            <label>Роли:
-                <input type="checkbox" name="roles"
-                   th:each="role: ${userRoles}"
-                   th:text="${role.getRole()}"
-                   th:value="${role.getId()}"
-                   th:field="*{roles}"/>
-            </label>
-        </div>
+        <label for="role">Роль 1 (ADMIN) или 2 (USER) ?</label>
+        <input type="text" th:field="*{roles}" id="role">
+<!--        <div style="color:red" th:if="${#fields.hasErrors('role')}" th:errors="*{roles}">Ошибка в выборе роли</div>-->
+        <br/>
 
         <input type="submit" value="Создать"/>
 
-    </div>
-</form>
+    </form>
 
-<form th:method="POST" th:action="@{/logout}">
-    <input type="submit" value="Разлогиниться"/>
-</form>
+    <form th:method="POST" th:action="@{/logout}">
+        <input type="submit" value="Выйти из системы"/>
+    </form>
 
-</body>
-</html>
+    </body>
+    </html>
