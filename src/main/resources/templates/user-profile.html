@@ -29,7 +29,9 @@
         </div>
 
         <br>
-        <input type="submit" value="Разлогиниться"/>
+        <form th:method="POST" th:action="@{/logout}">
+            <input type="submit" value="Выйти из системы"/>
+        </form>
 
     </div>
 </form>

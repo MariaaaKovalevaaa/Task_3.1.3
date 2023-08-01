@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().successHandler(successUserHandler).permitAll()
                 .and()//разделитель
 
-                .logout().logoutSuccessUrl("/").permitAll(); //При успешном разлоге отправляем юзера в корень и это разрешено всем
+                .logout().permitAll(); //Разлог разрешен всем
     }
 
     @Override
