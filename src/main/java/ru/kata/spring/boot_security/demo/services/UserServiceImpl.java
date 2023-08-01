@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -62,6 +61,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user_from_DB);
     }
+
     @Transactional
     @Override
     public void saveUser(User user) {

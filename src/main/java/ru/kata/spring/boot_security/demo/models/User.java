@@ -38,17 +38,14 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, List<Role> roles) {
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setUsername(String username) {
@@ -65,10 +62,6 @@ public class User implements UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    public void addRole(Role role) {
-        this.roles.add(role);
     }
 
     @Override
